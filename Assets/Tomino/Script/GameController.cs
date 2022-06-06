@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour
     public AlertView alertView;
     public SettingsView settingsView;
     public AudioPlayer audioPlayer;
-    public GameObject screenButtons;
     public AudioSource musicAudioSource;
 
     private UniversalInput universalInput;
@@ -99,7 +98,7 @@ public class GameController : MonoBehaviour
 
     private void HandlePlayerSettings()
     {
-        screenButtons.SetActive(Settings.ScreenButonsEnabled);
+        GameConfig.ScreenButtonsView.SetActive(Settings.ScreenButonsEnabled);
         GameConfig.BoardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
         musicAudioSource.gameObject.SetActive(Settings.MusicEnabled);
     }
