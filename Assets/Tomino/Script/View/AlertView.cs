@@ -8,11 +8,6 @@ public class AlertView : MonoBehaviour
     public RectTransform buttonsContainer;
     public GameObject buttonPrefab;
 
-    internal void Awake()
-    {
-        Hide();
-    }
-
     public void SetTitle(string text)
     {
         titleText.text = text;

@@ -44,8 +44,6 @@ public class SettingsView : MonoBehaviour
         {
             audioPlayer.PlayResumeClip();
         });
-
-        Hide();
     }
 
     public void Show(UnityAction onCloseCallback)
