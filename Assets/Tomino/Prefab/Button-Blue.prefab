@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4263267316852507750}
   - component: {fileID: 2913500244192693606}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button-Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 14d434b05e4e74885947439b607b59c0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d391d1f6b6df4aa9b5e01fd02eee12b, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5686275, g: 0.08235294, b: 0.54901963, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

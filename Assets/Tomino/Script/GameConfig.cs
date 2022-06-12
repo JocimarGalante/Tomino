@@ -7,4 +7,5 @@ public class GameConfig : MonoBehaviour
     public ScoreView ScoreView;
     public LevelView LevelView;
     public GameObject ScreenButtonsView;
+    public AlertView AlertView;
 }

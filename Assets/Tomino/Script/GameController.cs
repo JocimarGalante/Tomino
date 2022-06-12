@@ -6,12 +6,12 @@ public class GameController : MonoBehaviour
     public Camera currentCamera;
     public Game game;
     public GameConfig GameConfig;
-    public AlertView alertView;
     public SettingsView settingsView;
     public AudioPlayer audioPlayer;
     public AudioSource musicAudioSource;
 
     private UniversalInput universalInput;
+    private AlertView AlertView => GameConfig.AlertView;
 
     internal void Awake()
     {
@@ -72,9 +72,9 @@ public class GameController : MonoBehaviour
 
     private void OnGameFinished()
     {
-        alertView.SetTitle(Constant.Text.GameFinished);
-        alertView.AddButton(Constant.Text.PlayAgain, game.Start, audioPlayer.PlayNewGameClip);
-        alertView.Show();
+        AlertView.SetTitle(Constant.Text.GameFinished);
+        AlertView.AddButton(Constant.Text.PlayAgain, game.Start, audioPlayer.PlayNewGameClip);
+        AlertView.Show();
     }
 
     internal void Update()
@@ -84,11 +84,11 @@ public class GameController : MonoBehaviour
 
     private void ShowPauseView()
     {
-        alertView.SetTitle(Constant.Text.GamePaused);
-        alertView.AddButton(Constant.Text.Resume, game.Resume, audioPlayer.PlayResumeClip);
-        alertView.AddButton(Constant.Text.NewGame, game.Start, audioPlayer.PlayNewGameClip);
-        alertView.AddButton(Constant.Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
-        alertView.Show();
+        AlertView.SetTitle(Constant.Text.GamePaused);
+        AlertView.AddButton(Constant.Text.Resume, game.Resume, audioPlayer.PlayResumeClip);
+        AlertView.AddButton(Constant.Text.NewGame, game.Start, audioPlayer.PlayNewGameClip);
+        AlertView.AddButton(Constant.Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
+        AlertView.Show();
     }
 
     private void ShowSettingsView()
