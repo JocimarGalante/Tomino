@@ -11,6 +11,9 @@
         public static readonly string Music = "MUSIC";
         public static readonly string ScreenButtons = "SCREEN BUTTONS";
         public static readonly string Close = "CLOSE";
+        public static readonly string ThemeLabel = "THEME";
+        public static readonly string ThemeNeon = "NEON";
+        public static readonly string ThemeBlue = "BLUE";
     }
 
     public static class ScoreFormat

@@ -6,12 +6,12 @@ public class GameController : MonoBehaviour
     public Camera currentCamera;
     public Game game;
     public GameConfig GameConfig;
-    public SettingsView settingsView;
     public AudioPlayer audioPlayer;
     public AudioSource musicAudioSource;
 
     private UniversalInput universalInput;
     private AlertView AlertView => GameConfig.AlertView;
+    private SettingsView SettingsView => GameConfig.SettingsView;
 
     internal void Awake()
     {
@@ -93,7 +93,7 @@ public class GameController : MonoBehaviour
 
     private void ShowSettingsView()
     {
-        settingsView.Show(ShowPauseView);
+        SettingsView.Show(ShowPauseView);
     }
 
     private void HandlePlayerSettings()

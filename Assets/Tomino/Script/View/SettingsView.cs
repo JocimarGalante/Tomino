@@ -8,6 +8,9 @@ public class SettingsView : MonoBehaviour
     public Text titleText;
     public Toggle musicToggle;
     public Toggle screenButtonsToggle;
+    public Text themeText;
+    public Toggle neonThemeToggle;
+    public Toggle blueThemeToggle;
     public Button closeButton;
     public AudioPlayer audioPlayer;
 
@@ -16,6 +19,7 @@ public class SettingsView : MonoBehaviour
     internal void Awake()
     {
         titleText.text = Constant.Text.Settings;
+        themeText.text = Constant.Text.ThemeLabel;
 
         musicToggle.isOn = Settings.MusicEnabled;
         musicToggle.GetComponentInChildren<Text>().text = Constant.Text.Music;
@@ -31,6 +35,28 @@ public class SettingsView : MonoBehaviour
         {
             Settings.ScreenButonsEnabled = enabled;
             PlayToggleAudioClip(enabled);
+        });
+
+        neonThemeToggle.isOn = Settings.Theme == Theme.Neon;
+        neonThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.ThemeNeon;
+        neonThemeToggle.onValueChanged.AddListener((enabled) =>
+        {
+            if (enabled)
+            {
+                Settings.Theme = Theme.Neon;
+                PlayToggleAudioClip(enabled);
+            }
+        });
+
+        blueThemeToggle.isOn = Settings.Theme == Theme.Blue;
+        blueThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.ThemeBlue;
+        blueThemeToggle.onValueChanged.AddListener((enabled) =>
+        {
+            if (enabled)
+            {
+                Settings.Theme = Theme.Blue;
+                PlayToggleAudioClip(enabled);
+            }
         });
 
         closeButton.GetComponentInChildren<Text>().text = Constant.Text.Close;
