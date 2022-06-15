@@ -18,10 +18,6 @@ public class SettingsView : MonoBehaviour
 
     internal void Awake()
     {
-        titleText.text = Constant.Text.Settings;
-        themeText.text = Constant.Text.ThemeLabel;
-
-        musicToggle.isOn = Settings.MusicEnabled;
         musicToggle.GetComponentInChildren<Text>().text = Constant.Text.Music;
         musicToggle.onValueChanged.AddListener((enabled) =>
         {
@@ -29,7 +25,6 @@ public class SettingsView : MonoBehaviour
             PlayToggleAudioClip(enabled);
         });
 
-        screenButtonsToggle.isOn = Settings.ScreenButonsEnabled;
         screenButtonsToggle.GetComponentInChildren<Text>().text = Constant.Text.ScreenButtons;
         screenButtonsToggle.onValueChanged.AddListener((enabled) =>
         {
@@ -37,7 +32,6 @@ public class SettingsView : MonoBehaviour
             PlayToggleAudioClip(enabled);
         });
 
-        neonThemeToggle.isOn = Settings.Theme == Theme.Neon;
         neonThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.ThemeNeon;
         neonThemeToggle.onValueChanged.AddListener((enabled) =>
         {
@@ -48,7 +42,6 @@ public class SettingsView : MonoBehaviour
             }
         });
 
-        blueThemeToggle.isOn = Settings.Theme == Theme.Blue;
         blueThemeToggle.GetComponentInChildren<Text>().text = Constant.Text.ThemeBlue;
         blueThemeToggle.onValueChanged.AddListener((enabled) =>
         {
@@ -75,10 +68,18 @@ public class SettingsView : MonoBehaviour
     public void Show(UnityAction onCloseCallback)
     {
         this.onCloseCallback = onCloseCallback;
+
+        titleText.text = Constant.Text.Settings;
+        themeText.text = Constant.Text.ThemeLabel;
+        musicToggle.isOn = Settings.MusicEnabled;
+        screenButtonsToggle.isOn = Settings.ScreenButonsEnabled;
+        neonThemeToggle.isOn = Settings.Theme == Theme.Neon;
+        blueThemeToggle.isOn = Settings.Theme == Theme.Blue;
+
         gameObject.SetActive(true);
     }
 
-    private void Hide()
+    public void Hide()
     {
         gameObject.SetActive(false);
     }

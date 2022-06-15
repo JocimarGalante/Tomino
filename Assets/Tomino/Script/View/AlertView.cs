@@ -8,6 +8,8 @@ public class AlertView : MonoBehaviour
     public RectTransform buttonsContainer;
     public GameObject buttonPrefab;
 
+    private UnityAction OnCloseAction;
+
     public void SetTitle(string text)
     {
         titleText.text = text;
@@ -23,14 +25,19 @@ public class AlertView : MonoBehaviour
 
         pointerHandlerComponent.onPointerDown.AddListener(pointerDownAction);
         buttonComponent.onClick.AddListener(onClickAction);
-        buttonComponent.onClick.AddListener(Hide);
+        buttonComponent.onClick.AddListener(() =>
+        {
+            Hide();
+            OnCloseAction.Invoke();
+        });
         textComponent.text = text;
 
         rectTransformComponent.SetParent(buttonsContainer, false);
     }
 
-    public void Show()
+    public void Show(UnityAction onCloseAction)
     {
+        OnCloseAction = onCloseAction;
         gameObject.SetActive(true);
     }
 

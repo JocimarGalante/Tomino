@@ -5,28 +5,49 @@ public class GameController : MonoBehaviour
 {
     public Camera currentCamera;
     public Game game;
-    public GameConfig GameConfig;
+    public GameConfig NeonGameConfig;
+    public GameConfig BlueGameConfig;
     public AudioPlayer audioPlayer;
     public AudioSource musicAudioSource;
 
+    private GameConfig GameConfig;
     private UniversalInput universalInput;
+    private BoardView BoardView => GameConfig.BoardView;
     private AlertView AlertView => GameConfig.AlertView;
     private SettingsView SettingsView => GameConfig.SettingsView;
 
-    internal void Awake()
-    {
-        HandlePlayerSettings();
-        Settings.ChangedEvent += HandlePlayerSettings;
-    }
+    // This looks like some "view model".
+    private bool AlertViewVisible = false;
+    private bool SettingsViewVisible = false;
 
     internal void Start()
     {
+        switch (Settings.Theme)
+        {
+            case Theme.Blue:
+                GameConfig = BlueGameConfig;
+                BlueGameConfig.GameView.SetActive(true);
+                NeonGameConfig.GameView.SetActive(false);
+                break;
+            case Theme.Neon:
+                GameConfig = NeonGameConfig;
+                BlueGameConfig.GameView.SetActive(false);
+                NeonGameConfig.GameView.SetActive(true);
+                break;
+            default:
+                break;
+        }
+
         Board board = new(10, 20);
 
-        GameConfig.BoardView.SetBoard(board);
-        GameConfig.NextPieceView.SetBoard(board);
+        NeonGameConfig.BoardView.SetBoard(board);
+        BlueGameConfig.BoardView.SetBoard(board);
 
-        universalInput = new UniversalInput(new KeyboardInput(), GameConfig.BoardView.touchInput);
+        NeonGameConfig.NextPieceView.SetBoard(board);
+        BlueGameConfig.NextPieceView.SetBoard(board);
+
+        // TODO: Enable providing input to the Game dynamically.
+        universalInput = new UniversalInput(new KeyboardInput(), NeonGameConfig.BoardView.touchInput);
 
         game = new Game(board, universalInput);
         game.FinishedEvent += OnGameFinished;
@@ -35,8 +56,14 @@ public class GameController : MonoBehaviour
         game.PieceMovedEvent += audioPlayer.PlayPieceMoveClip;
         game.Start();
 
-        GameConfig.ScoreView.game = game;
-        GameConfig.LevelView.game = game;
+        NeonGameConfig.ScoreView.game = game;
+        BlueGameConfig.ScoreView.game = game;
+
+        NeonGameConfig.LevelView.game = game;
+        BlueGameConfig.LevelView.game = game;
+
+        HandlePlayerSettings();
+        Settings.ChangedEvent += HandlePlayerSettings;
     }
 
     public void OnPauseButtonTap()
@@ -74,7 +101,12 @@ public class GameController : MonoBehaviour
     {
         AlertView.SetTitle(Constant.Text.GameFinished);
         AlertView.AddButton(Constant.Text.PlayAgain, game.Start, audioPlayer.PlayNewGameClip);
-        AlertView.Show();
+        AlertView.Show(() =>
+        {
+            AlertView.Hide();
+            AlertViewVisible = false;
+        });
+        AlertViewVisible = true;
     }
 
     internal void Update()
@@ -88,18 +120,66 @@ public class GameController : MonoBehaviour
         AlertView.AddButton(Constant.Text.Resume, game.Resume, audioPlayer.PlayResumeClip);
         AlertView.AddButton(Constant.Text.NewGame, game.Start, audioPlayer.PlayNewGameClip);
         AlertView.AddButton(Constant.Text.Settings, ShowSettingsView, audioPlayer.PlayResumeClip);
-        AlertView.Show();
+        AlertView.Show(() =>
+        {
+            AlertView.Hide();
+            AlertViewVisible = false;
+        });
+        AlertViewVisible = true;
     }
 
     private void ShowSettingsView()
     {
-        SettingsView.Show(ShowPauseView);
+        SettingsView.Show(() =>
+        {
+            SettingsViewVisible = false;
+            ShowPauseView();
+        });
+        SettingsViewVisible = true;
     }
 
     private void HandlePlayerSettings()
     {
         GameConfig.ScreenButtonsView.SetActive(Settings.ScreenButonsEnabled);
-        GameConfig.BoardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
+        BoardView.touchInput.Enabled = !Settings.ScreenButonsEnabled;
         musicAudioSource.gameObject.SetActive(Settings.MusicEnabled);
+
+        switch (Settings.Theme)
+        {
+            case Theme.Blue:
+                ApplyGameConfig(BlueGameConfig);
+                break;
+            case Theme.Neon:
+                ApplyGameConfig(NeonGameConfig);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ApplyGameConfig(GameConfig config)
+    {
+        if (config == GameConfig)
+        {
+            return;
+        }
+
+        GameConfig.GameView.SetActive(false);
+        GameConfig.AlertView.Hide();
+        GameConfig.SettingsView.Hide();
+
+        GameConfig = config;
+
+        if (AlertViewVisible)
+        {
+            GameConfig.AlertView.Show(() => { });
+        }
+
+        if (SettingsViewVisible)
+        {
+            SettingsView.Show(ShowPauseView);
+        }
+
+        GameConfig.GameView.SetActive(true);
     }
 }

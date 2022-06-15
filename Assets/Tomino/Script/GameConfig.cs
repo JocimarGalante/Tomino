@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameConfig : MonoBehaviour
 {
+    public GameObject GameView;
     public BoardView BoardView;
     public PieceView NextPieceView;
     public ScoreView ScoreView;
