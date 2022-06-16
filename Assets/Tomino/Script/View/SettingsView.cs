@@ -37,8 +37,8 @@ public class SettingsView : MonoBehaviour
         {
             if (enabled)
             {
-                Settings.Theme = Theme.Neon;
                 PlayToggleAudioClip(enabled);
+                Settings.Theme = Theme.Neon;
             }
         });
 
@@ -47,8 +47,8 @@ public class SettingsView : MonoBehaviour
         {
             if (enabled)
             {
-                Settings.Theme = Theme.Blue;
                 PlayToggleAudioClip(enabled);
+                Settings.Theme = Theme.Blue;
             }
         });
 
@@ -86,6 +86,10 @@ public class SettingsView : MonoBehaviour
 
     private void PlayToggleAudioClip(bool enabled)
     {
+        if (!gameObject.activeInHierarchy)
+        {
+            return;
+        }
         if (enabled)
         {
             audioPlayer.PlayToggleOnClip();
