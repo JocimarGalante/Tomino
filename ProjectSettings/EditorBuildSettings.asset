@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Tomino/Scene/Main.unity
+    guid: 27a143e31349942d2807fc29bb53d188
+  m_configObjects: {}

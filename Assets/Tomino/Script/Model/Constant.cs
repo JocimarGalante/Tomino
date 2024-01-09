@@ -2,18 +2,18 @@
 {
     public static class Text
     {
-        public static readonly string GameFinished = "GAME FINISHED";
-        public static readonly string GamePaused = "GAME PAUSED";
-        public static readonly string PlayAgain = "PLAY AGAIN";
-        public static readonly string Resume = "RESUME";
-        public static readonly string NewGame = "NEW GAME";
-        public static readonly string Settings = "SETTINGS";
-        public static readonly string Music = "MUSIC";
-        public static readonly string ScreenButtons = "SCREEN BUTTONS";
-        public static readonly string Close = "CLOSE";
-        public static readonly string ThemeLabel = "THEME";
-        public static readonly string ThemeNeon = "NEON";
-        public static readonly string ThemeBlue = "BLUE";
+        public static readonly string GameFinished = "JOGO TERMINADO";
+        public static readonly string GamePaused = "JOGO PAUSADO";
+        public static readonly string PlayAgain = "JOGAR NOVAMENTE";
+        public static readonly string Resume = "RETOMAR";
+        public static readonly string NewGame = "NOVO JOGO";
+        public static readonly string Settings = "CONFIGURAÇÕES";
+        public static readonly string Music = "MÚSICA";
+        public static readonly string ScreenButtons = "BOTÕES DA TELA\r\n";
+        public static readonly string Close = "FECHAR";
+        public static readonly string ThemeLabel = "TEMA";
+        public static readonly string ThemeNeon = "NÉON";
+        public static readonly string ThemeBlue = "AZUL";
     }
 
     public static class ScoreFormat
